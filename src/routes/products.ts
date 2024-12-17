@@ -21,13 +21,13 @@ router.post(
   parseBodyToJson,
   checkSchema(CREATE_PRODUCT_SCHEMA),
   [validateAllParams],
-  createProduct
+  createProduct,
 );
 router.put(
   "/changestate/:id",
   checkSchema(UPDATE_STATE_PRODUCT_SCHEMA),
   validateAllParams,
-  changeProductState
+  changeProductState,
 );
 router.put(
   "/:id",
@@ -35,6 +35,6 @@ router.put(
   parseBodyToJson,
   checkSchema(UPDATE_PRODUCT_SCHEMA),
   validateAllParams,
-  updateProduct
+  updateProduct,
 );
 export { router };
