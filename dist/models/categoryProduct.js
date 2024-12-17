@@ -1,14 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CategoryProduct = void 0;
+exports.CategoryProduct = exports.CATEGORYPRODUCT_SCHEMA = void 0;
 const sequelize_1 = require("sequelize");
 const products_1 = require("./products");
 const category_1 = require("./category");
-const config_1 = require("../database/config");
-class CategoryProduct extends sequelize_1.Model {
-}
-exports.CategoryProduct = CategoryProduct;
-CategoryProduct.init({
+exports.CATEGORYPRODUCT_SCHEMA = {
     categoryProductId: {
         primaryKey: true,
         autoIncrement: true,
@@ -30,5 +26,15 @@ CategoryProduct.init({
             key: "categoryId",
         },
     },
-}, { sequelize: config_1.db, tableName: "CategoryProduct", timestamps: false });
+};
+class CategoryProduct extends sequelize_1.Model {
+    static config(db) {
+        return {
+            sequelize: db,
+            tableName: "CategoryProduct",
+            timestamps: false,
+        };
+    }
+}
+exports.CategoryProduct = CategoryProduct;
 //# sourceMappingURL=categoryProduct.js.map

@@ -1,12 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Category = void 0;
+exports.Category = exports.CATEGORY_SCHEMA = void 0;
 const sequelize_1 = require("sequelize");
-const config_1 = require("../database/config");
-class Category extends sequelize_1.Model {
-}
-exports.Category = Category;
-Category.init({
+exports.CATEGORY_SCHEMA = {
     categoryId: {
         primaryKey: true,
         autoIncrement: true,
@@ -16,5 +12,19 @@ Category.init({
         allowNull: false,
         type: sequelize_1.DataTypes.STRING(100),
     },
-}, { sequelize: config_1.db, tableName: "Category", timestamps: false });
+};
+class Category extends sequelize_1.Model {
+    static config(db) {
+        return { sequelize: db, tableName: "Category", timestamps: false };
+    }
+    static associate(models) {
+        this.belongsToMany(models.Product, {
+            through: models.CategoryProduct,
+            foreignKey: "categoryId",
+            otherKey: "productId",
+            as: "products",
+        });
+    }
+}
+exports.Category = Category;
 //# sourceMappingURL=category.js.map

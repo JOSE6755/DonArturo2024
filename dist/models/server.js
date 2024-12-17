@@ -17,14 +17,15 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const products_1 = require("../routes/products");
 const config_1 = require("../database/config");
+const path_1 = __importDefault(require("path"));
 class Server {
     constructor() {
         this.port = Number(process.env.PORT) || 3000;
         this.basePath = "/api/v1";
         this.app = (0, express_1.default)();
         this.dbConnection();
-        this.middlewares();
         this.routes();
+        this.middlewares();
     }
     routes() {
         this.app.use(`${this.basePath}/products`, products_1.router);
@@ -33,6 +34,7 @@ class Server {
     middlewares() {
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
+        this.app.use("/productImage", express_1.default.static(path_1.default.join(__dirname, "../productImage")));
     }
     dbConnection() {
         return __awaiter(this, void 0, void 0, function* () {

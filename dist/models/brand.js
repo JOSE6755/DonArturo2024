@@ -1,12 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Brand = void 0;
+exports.Brand = exports.BRAND_SCHEMA = void 0;
 const sequelize_1 = require("sequelize");
-const config_1 = require("../database/config");
-class Brand extends sequelize_1.Model {
-}
-exports.Brand = Brand;
-Brand.init({
+exports.BRAND_SCHEMA = {
     brandId: {
         primaryKey: true,
         autoIncrement: true,
@@ -16,9 +12,17 @@ Brand.init({
         allowNull: false,
         type: sequelize_1.DataTypes.STRING(100),
     },
-}, {
-    sequelize: config_1.db,
-    tableName: "Brand",
-    timestamps: false,
-});
+};
+class Brand extends sequelize_1.Model {
+    static config(db) {
+        return { sequelize: db, tableName: "Brand", timestamps: false };
+    }
+    static associate(models) {
+        this.hasMany(models.Product, {
+            as: "products",
+            foreignKey: "brandId",
+        });
+    }
+}
+exports.Brand = Brand;
 //# sourceMappingURL=brand.js.map

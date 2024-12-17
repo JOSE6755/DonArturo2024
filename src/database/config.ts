@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import { initModels } from "../models";
 export const db = new Sequelize({
   dialect: "mssql",
   database: process.env.DBNAME || undefined,
@@ -8,3 +9,5 @@ export const db = new Sequelize({
   password: process.env.DBPASSWORD || undefined,
   username: "sa",
 });
+
+initModels(db);
