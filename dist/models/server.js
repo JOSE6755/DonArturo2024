@@ -29,6 +29,7 @@ class Server {
     routes() {
         this.app.use(`${this.basePath}/category`, routes_1.routes.categoryRouter);
         this.app.use(`${this.basePath}/products`, routes_1.routes.productsRouter);
+        this.app.use(`${this.basePath}/states`, routes_1.routes.stateRouter);
     }
     middlewares() {
         this.app.use((0, cors_1.default)());

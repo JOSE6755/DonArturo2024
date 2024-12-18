@@ -19,6 +19,7 @@ export class Server {
   private routes(): void {
     this.app.use(`${this.basePath}/category`, routes.categoryRouter);
     this.app.use(`${this.basePath}/products`, routes.productsRouter);
+    this.app.use(`${this.basePath}/states`, routes.stateRouter);
   }
 
   private middlewares(): void {
