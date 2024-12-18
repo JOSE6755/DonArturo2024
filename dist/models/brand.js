@@ -18,6 +18,7 @@ class Brand extends sequelize_1.Model {
         return { sequelize: db, tableName: "Brand", timestamps: false };
     }
     static associate(models) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         this.hasMany(models.Product, {
             as: "products",
             foreignKey: "brandId",

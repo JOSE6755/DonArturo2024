@@ -1,10 +1,4 @@
-import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 
 export const CLIENT_SCHEMA = {
   clientId: {
@@ -30,10 +24,7 @@ export const CLIENT_SCHEMA = {
   },
 };
 
-export class Client extends Model<
-  InferAttributes<Client>,
-  InferCreationAttributes<Client>
-> {
+export class Client extends Model<InferAttributes<Client>, InferCreationAttributes<Client>> {
   declare clientId: number | null;
   declare commercialName: string;
   declare address: string;

@@ -1,11 +1,4 @@
-import {
-  DataTypes,
-  ForeignKey,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 import { Product } from "./products";
 import { Category } from "./category";
 
@@ -32,10 +25,7 @@ export const CATEGORYPRODUCT_SCHEMA = {
     },
   },
 };
-export class CategoryProduct extends Model<
-  InferAttributes<CategoryProduct>,
-  InferCreationAttributes<CategoryProduct>
-> {
+export class CategoryProduct extends Model<InferAttributes<CategoryProduct>, InferCreationAttributes<CategoryProduct>> {
   declare categoryProductId: number | null;
   declare productId: ForeignKey<Product["productId"]>;
   declare categoryId: ForeignKey<Category["categoryId"]>;

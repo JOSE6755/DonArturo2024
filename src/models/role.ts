@@ -1,10 +1,4 @@
-import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 
 export const ROLE_SCHEMA = {
   roleId: {
@@ -18,10 +12,7 @@ export const ROLE_SCHEMA = {
   },
 };
 
-export class Role extends Model<
-  InferAttributes<Role>,
-  InferCreationAttributes<Role>
-> {
+export class Role extends Model<InferAttributes<Role>, InferCreationAttributes<Role>> {
   declare roleId: number | null;
   declare name: string;
 

@@ -1,10 +1,4 @@
-import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 
 export const STATE_SCHEMA = {
   stateId: {
@@ -17,10 +11,7 @@ export const STATE_SCHEMA = {
     type: DataTypes.STRING(50),
   },
 };
-export class State extends Model<
-  InferAttributes<State>,
-  InferCreationAttributes<State>
-> {
+export class State extends Model<InferAttributes<State>, InferCreationAttributes<State>> {
   declare stateId: number | null;
   declare name: string;
 

@@ -17,13 +17,13 @@ const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const storage = multer_1.default.diskStorage({
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     destination: function (req, file, cb) {
         return __awaiter(this, void 0, void 0, function* () {
             const destPath = path_1.default.join(__dirname, "../productImage");
             try {
                 yield fs_1.default.promises.mkdir(destPath, { recursive: true });
                 cb(null, destPath);
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             }
             catch (error) {
                 cb(new Error(`Error during fileUpload: ${error.message}`), "");

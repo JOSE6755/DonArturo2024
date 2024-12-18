@@ -88,4 +88,4 @@ typings/
 .dynamodb/
 
 # Project builded
-dist/productImage
+**/dist/productImage

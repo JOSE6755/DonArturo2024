@@ -8,15 +8,12 @@ import { Op, QueryTypes } from "sequelize";
 import fs from "fs";
 import path from "path";
 
-export async function getAllActiveProducts(
-  req: Request,
-  res: Response,
-): Promise<void> {
+export async function getAllActiveProducts(req: Request, res: Response): Promise<void> {
   const products = await getAllProducts(true);
   res.status(200).json({ products });
 }
 
-async function getAllProducts(onlyActive: boolean = false): Promise<Product[]> {
+async function getAllProducts(onlyActive = false): Promise<Product[]> {
   const [products]: [Product[]] = await Promise.all([
     Product.findAll({
       include: [
@@ -46,10 +43,7 @@ async function getAllProducts(onlyActive: boolean = false): Promise<Product[]> {
   return products;
 }
 
-export async function createProduct(
-  req: Request,
-  res: Response,
-): Promise<void> {
+export async function createProduct(req: Request, res: Response): Promise<void> {
   if (!req.file) {
     res.status(400).json({
       msg: "File not provided",
@@ -71,20 +65,14 @@ export async function createProduct(
       msg: "Product created successfully!",
       body: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     await fs.promises.unlink(req.file.path);
-    res
-      .status(500)
-      .json({ msg: `Error during product creation: ${error.message}` });
+    res.status(500).json({ msg: `Error during product creation: ${error.message}` });
     console.log(error);
   }
 }
 
-export async function updateProduct(
-  req: Request,
-  res: Response,
-): Promise<void> {
+export async function updateProduct(req: Request, res: Response): Promise<void> {
   const productId = Number(req.params.id);
   let product: Product | null;
   try {
@@ -93,11 +81,8 @@ export async function updateProduct(
       res.status(404).json({ msg: "Product not found" });
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ msg: `Error during product search: ${error.message}` });
+    res.status(500).json({ msg: `Error during product search: ${error.message}` });
     return;
   }
 
@@ -105,7 +90,6 @@ export async function updateProduct(
     try {
       const imagePath = path.join(__dirname, "../productImage", product.image);
       await fs.promises.unlink(imagePath);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       res.status(500).json({
         msg: `It was not possible to delete the image: ${error.message}`,
@@ -118,16 +102,7 @@ export async function updateProduct(
     const productInfo = req.body.productInfo;
     const { name, code, stock, price, stateId, brandId } = productInfo;
     const params = req.file
-      ? [
-          productId,
-          name,
-          code,
-          stock,
-          price,
-          stateId,
-          req.file.filename,
-          brandId,
-        ]
+      ? [productId, name, code, stock, price, stateId, req.file.filename, brandId]
       : [productId, name, code, stock, price, stateId, product.image, brandId];
     const result = await db.query(
       "EXEC UpdateProduct @ProductId = $1, @Name = $2, @Code = $3, @Stock = $4, @Price = $5, @StateId = $6, @Image = $7, @BrandId = $8",
@@ -137,18 +112,12 @@ export async function updateProduct(
       msg: "Product updated successfully",
       result: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ msg: `Error during product update: ${error.message}` });
+    res.status(500).json({ msg: `Error during product update: ${error.message}` });
   }
 }
 
-export async function changeProductState(
-  req: Request,
-  res: Response,
-): Promise<void> {
+export async function changeProductState(req: Request, res: Response): Promise<void> {
   const productId = req.params.id;
   const product = await Product.findByPk(productId);
   if (!product) {
@@ -157,16 +126,15 @@ export async function changeProductState(
   }
   const { stateId } = req.body;
   try {
-    const result = await db.query(
-      "EXEC UpdateProductState @ProductId = $1, @StateId = $2;",
-      { bind: [productId, stateId], type: QueryTypes.UPDATE },
-    );
+    const result = await db.query("EXEC UpdateProductState @ProductId = $1, @StateId = $2;", {
+      bind: [productId, stateId],
+      type: QueryTypes.UPDATE,
+    });
 
     res.json({
       msg: "Product updated successfully",
       result: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.json({ msg: `Error changing product state: ${error.message}` });
   }
