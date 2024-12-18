@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
-import { router as productsRouter } from "../routes/products";
+
+import { routes } from "../routes";
 import { db } from "../database/config";
 import path from "path";
 export class Server {
@@ -10,39 +11,43 @@ export class Server {
   constructor() {
     this.basePath = "/api/v1";
     this.app = express();
-    this.dbConnection();
-    this.routes();
     this.middlewares();
+
+    this.routes();
   }
 
   private routes(): void {
-    this.app.use(`${this.basePath}/products`, productsRouter);
-
-    return;
+    this.app.use(`${this.basePath}/category`, routes.categoryRouter);
+    this.app.use(`${this.basePath}/products`, routes.productsRouter);
   }
 
   private middlewares(): void {
     this.app.use(cors());
     this.app.use(express.json());
-    this.app.use(
-      "/productImage",
-      express.static(path.join(__dirname, "../productImage")),
-    );
+
+    this.app.use("/productImage", express.static(path.join(__dirname, "../productImage")));
   }
 
   private async dbConnection(): Promise<void> {
     try {
       await db.authenticate();
       console.info("Authenticated");
-      db.sync();
+      await db.sync();
     } catch (error) {
       console.error(error);
     }
   }
 
-  public start(): void {
-    this.app.listen(this.port, () => {
-      console.info(`Server started on ${this.port}`);
-    });
+  public async start(): Promise<string | Error> {
+    try {
+      await this.dbConnection();
+      this.app.listen(this.port);
+      return `Server started on ${this.port}`;
+    } catch (error) {
+      if (error instanceof Error) {
+        return error;
+      }
+      return new Error("An error ocurred during server startup");
+    }
   }
 }

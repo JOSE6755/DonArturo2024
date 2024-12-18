@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Server = void 0;
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const products_1 = require("../routes/products");
+const routes_1 = require("../routes");
 const config_1 = require("../database/config");
 const path_1 = __importDefault(require("path"));
 class Server {
@@ -23,13 +23,12 @@ class Server {
         this.port = Number(process.env.PORT) || 3000;
         this.basePath = "/api/v1";
         this.app = (0, express_1.default)();
-        this.dbConnection();
-        this.routes();
         this.middlewares();
+        this.routes();
     }
     routes() {
-        this.app.use(`${this.basePath}/products`, products_1.router);
-        return;
+        this.app.use(`${this.basePath}/category`, routes_1.routes.categoryRouter);
+        this.app.use(`${this.basePath}/products`, routes_1.routes.productsRouter);
     }
     middlewares() {
         this.app.use((0, cors_1.default)());
@@ -41,7 +40,7 @@ class Server {
             try {
                 yield config_1.db.authenticate();
                 console.info("Authenticated");
-                config_1.db.sync();
+                yield config_1.db.sync();
             }
             catch (error) {
                 console.error(error);
@@ -49,8 +48,18 @@ class Server {
         });
     }
     start() {
-        this.app.listen(this.port, () => {
-            console.info(`Server started on ${this.port}`);
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.dbConnection();
+                this.app.listen(this.port);
+                return `Server started on ${this.port}`;
+            }
+            catch (error) {
+                if (error instanceof Error) {
+                    return error;
+                }
+                return new Error("An error ocurred during server startup");
+            }
         });
     }
 }

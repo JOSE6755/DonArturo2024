@@ -4,4 +4,11 @@ import { Server } from "./models/server";
 
 const server = new Server();
 
-server.start();
+server
+  .start()
+  .then((x) => {
+    console.log(x);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

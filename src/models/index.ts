@@ -16,10 +16,7 @@ export function initModels(sequelize: Sequelize) {
   Category.init(CATEGORY_SCHEMA, Category.config(sequelize));
   State.init(STATE_SCHEMA, State.config(sequelize));
   Product.init(Product_SCHEMA, Product.config(sequelize));
-  CategoryProduct.init(
-    CATEGORYPRODUCT_SCHEMA,
-    CategoryProduct.config(sequelize),
-  );
+  CategoryProduct.init(CATEGORYPRODUCT_SCHEMA, CategoryProduct.config(sequelize));
   Client.init(CLIENT_SCHEMA, Client.config(sequelize));
   Role.init(ROLE_SCHEMA, Role.config(sequelize));
   User.init(USER_SCHEMA, User.config(sequelize));

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UPDATE_PRODUCT_SCHEMA = void 0;
 exports.UPDATE_PRODUCT_SCHEMA = {
-    "productInfo.id": {
+    id: {
         isInt: {
             errorMessage: "id must be an integer greater than 0",
             options: { min: 1 },

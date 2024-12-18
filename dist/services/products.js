@@ -80,13 +80,10 @@ function createProduct(req, res) {
                 msg: "Product created successfully!",
                 body: result,
             });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (error) {
             yield fs_1.default.promises.unlink(req.file.path);
-            res
-                .status(500)
-                .json({ msg: `Error during product creation: ${error.message}` });
+            res.status(500).json({ msg: `Error during product creation: ${error.message}` });
             console.log(error);
         }
     });
@@ -101,19 +98,15 @@ function updateProduct(req, res) {
                 res.status(404).json({ msg: "Product not found" });
                 return;
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (error) {
-            res
-                .status(500)
-                .json({ msg: `Error during product search: ${error.message}` });
+            res.status(500).json({ msg: `Error during product search: ${error.message}` });
             return;
         }
         if (req.file) {
             try {
                 const imagePath = path_1.default.join(__dirname, "../productImage", product.image);
                 yield fs_1.default.promises.unlink(imagePath);
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             }
             catch (error) {
                 res.status(500).json({
@@ -126,28 +119,16 @@ function updateProduct(req, res) {
             const productInfo = req.body.productInfo;
             const { name, code, stock, price, stateId, brandId } = productInfo;
             const params = req.file
-                ? [
-                    productId,
-                    name,
-                    code,
-                    stock,
-                    price,
-                    stateId,
-                    req.file.filename,
-                    brandId,
-                ]
+                ? [productId, name, code, stock, price, stateId, req.file.filename, brandId]
                 : [productId, name, code, stock, price, stateId, product.image, brandId];
             const result = yield config_1.db.query("EXEC UpdateProduct @ProductId = $1, @Name = $2, @Code = $3, @Stock = $4, @Price = $5, @StateId = $6, @Image = $7, @BrandId = $8", { bind: params, type: sequelize_1.QueryTypes.SELECT });
             res.status(200).json({
                 msg: "Product updated successfully",
                 result: result,
             });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (error) {
-            res
-                .status(500)
-                .json({ msg: `Error during product update: ${error.message}` });
+            res.status(500).json({ msg: `Error during product update: ${error.message}` });
         }
     });
 }
@@ -161,12 +142,14 @@ function changeProductState(req, res) {
         }
         const { stateId } = req.body;
         try {
-            const result = yield config_1.db.query("EXEC UpdateProductState @ProductId = $1, @StateId = $2;", { bind: [productId, stateId], type: sequelize_1.QueryTypes.UPDATE });
+            const result = yield config_1.db.query("EXEC UpdateProductState @ProductId = $1, @StateId = $2;", {
+                bind: [productId, stateId],
+                type: sequelize_1.QueryTypes.UPDATE,
+            });
             res.json({
                 msg: "Product updated successfully",
                 result: result,
             });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         }
         catch (error) {
             res.json({ msg: `Error changing product state: ${error.message}` });

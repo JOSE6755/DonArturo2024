@@ -1,7 +1,7 @@
 import { Schema } from "express-validator";
 
 export const UPDATE_PRODUCT_SCHEMA: Schema = {
-  "productInfo.id": {
+  id: {
     isInt: {
       errorMessage: "id must be an integer greater than 0",
       options: { min: 1 },

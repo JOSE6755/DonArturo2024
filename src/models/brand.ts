@@ -1,10 +1,4 @@
-import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 
 export const BRAND_SCHEMA = {
   brandId: {
@@ -18,10 +12,7 @@ export const BRAND_SCHEMA = {
   },
 };
 
-export class Brand extends Model<
-  InferAttributes<Brand>,
-  InferCreationAttributes<Brand>
-> {
+export class Brand extends Model<InferAttributes<Brand>, InferCreationAttributes<Brand>> {
   declare brandId: number | null;
   declare name: string;
 
@@ -34,6 +25,7 @@ export class Brand extends Model<
   }
 
   static associate(models): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     this.hasMany(models.Product, {
       as: "products",
       foreignKey: "brandId",

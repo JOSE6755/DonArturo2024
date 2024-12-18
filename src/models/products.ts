@@ -45,10 +45,7 @@ export const Product_SCHEMA = {
     type: DataTypes.STRING,
   },
 };
-export class Product extends Model<
-  InferAttributes<Product>,
-  InferCreationAttributes<Product>
-> {
+export class Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
   declare productId: number | null;
   declare name: string;
   declare code: string;

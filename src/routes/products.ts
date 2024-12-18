@@ -1,10 +1,5 @@
 import { Router } from "express";
-import {
-  changeProductState,
-  createProduct,
-  getAllActiveProducts,
-  updateProduct,
-} from "../services/products";
+import { changeProductState, createProduct, getAllActiveProducts, updateProduct } from "../services/products";
 import { upload } from "../utils/fileHandler";
 import { checkSchema } from "express-validator";
 import { CREATE_PRODUCT_SCHEMA } from "../validationSchema/product/createProduct";
@@ -23,12 +18,7 @@ router.post(
   [validateAllParams],
   createProduct,
 );
-router.put(
-  "/changestate/:id",
-  checkSchema(UPDATE_STATE_PRODUCT_SCHEMA),
-  validateAllParams,
-  changeProductState,
-);
+router.put("/changestate/:id", checkSchema(UPDATE_STATE_PRODUCT_SCHEMA), validateAllParams, changeProductState);
 router.put(
   "/:id",
   [upload.single("image")],

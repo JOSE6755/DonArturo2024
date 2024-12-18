@@ -1,0 +1,9 @@
+{
+    "printWidth": 120,
+    "tabWidth": 2,
+    "semi": true,
+    "quoteProps": "as-needed",
+    "trailingComma": "all",
+    "parser": "typescript",
+    "endOfLine": "auto"
+}

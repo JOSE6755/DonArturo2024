@@ -53,10 +53,7 @@ export const USER_SCHEMA = {
   },
 };
 
-export class User extends Model<
-  InferAttributes<User>,
-  InferCreationAttributes<User>
-> {
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare userId: number | null;
   declare names: string;
   declare lastNames: string;

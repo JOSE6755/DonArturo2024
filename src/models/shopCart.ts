@@ -1,11 +1,4 @@
-import {
-  DataTypes,
-  ForeignKey,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 import { User } from "./user";
 
 export const SHOPCART_SCHEMA = {
@@ -24,10 +17,7 @@ export const SHOPCART_SCHEMA = {
   },
 };
 
-export class ShopCart extends Model<
-  InferAttributes<ShopCart>,
-  InferCreationAttributes<ShopCart>
-> {
+export class ShopCart extends Model<InferAttributes<ShopCart>, InferCreationAttributes<ShopCart>> {
   declare idShopCart: number | null;
   declare creationDate: Date | null;
   declare modificationDate: Date | null;

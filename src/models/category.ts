@@ -1,10 +1,4 @@
-import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 
 export const CATEGORY_SCHEMA = {
   categoryId: {
@@ -17,10 +11,7 @@ export const CATEGORY_SCHEMA = {
     type: DataTypes.STRING(100),
   },
 };
-export class Category extends Model<
-  InferAttributes<Category>,
-  InferCreationAttributes<Category>
-> {
+export class Category extends Model<InferAttributes<Category>, InferCreationAttributes<Category>> {
   declare categoryId: number | null;
   declare name: string;
 
