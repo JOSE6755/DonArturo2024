@@ -21,6 +21,7 @@ export class Server {
     this.app.use(`${this.basePath}/products`, routes.productsRouter);
     this.app.use(`${this.basePath}/states`, routes.stateRouter);
     this.app.use(`${this.basePath}/brands`, routes.brandRouter);
+    this.app.use(`${this.basePath}/clients`, routes.clientRouter);
   }
 
   private middlewares(): void {
