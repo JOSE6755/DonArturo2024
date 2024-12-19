@@ -10,7 +10,7 @@ export const CLIENT_SCHEMA = {
     allowNull: false,
     type: DataTypes.STRING(100),
   },
-  address: {
+  adress: {
     allowNull: false,
     type: DataTypes.STRING(250),
   },
@@ -27,7 +27,7 @@ export const CLIENT_SCHEMA = {
 export class Client extends Model<InferAttributes<Client>, InferCreationAttributes<Client>> {
   declare clientId: number | null;
   declare commercialName: string;
-  declare address: string;
+  declare adress: string;
   declare phoneNumber: string;
   declare commercialEmail: string;
 

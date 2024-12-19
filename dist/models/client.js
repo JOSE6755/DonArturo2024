@@ -12,7 +12,7 @@ exports.CLIENT_SCHEMA = {
         allowNull: false,
         type: sequelize_1.DataTypes.STRING(100),
     },
-    address: {
+    adress: {
         allowNull: false,
         type: sequelize_1.DataTypes.STRING(250),
     },
