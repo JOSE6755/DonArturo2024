@@ -47,7 +47,7 @@ export const USER_SCHEMA = {
     allowNull: true,
     type: DataTypes.DATE,
   },
-  address: {
+  adress: {
     allowNull: false,
     type: DataTypes.STRING(250),
   },
@@ -62,11 +62,10 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   declare phoneNumber: string;
   declare birthDate: Date;
   declare creationDate: Date | null;
-  declare address: string;
+  declare adress: string;
   declare roleId: ForeignKey<Role["roleId"]>;
-  declare clientId: ForeignKey<Client["clientId"]>;
+  declare clientId: ForeignKey<Client["clientId"]> | null;
   declare stateId: ForeignKey<State["stateId"]>;
-  declare idShopCart: ForeignKey<ShopCart["idShopCart"]>;
   declare role: NonAttribute<Role> | null;
   declare client: NonAttribute<Client> | null;
   declare state: NonAttribute<State> | null;
@@ -84,7 +83,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     tableName: string;
     timestamps: boolean;
   } {
-    return { sequelize: db, tableName: "User", timestamps: false };
+    return { sequelize: db, tableName: "Users", timestamps: false };
   }
 
   static associate(models): void {

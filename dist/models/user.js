@@ -36,14 +36,14 @@ exports.USER_SCHEMA = {
         allowNull: true,
         type: sequelize_1.DataTypes.DATE,
     },
-    address: {
+    adress: {
         allowNull: false,
         type: sequelize_1.DataTypes.STRING(250),
     },
 };
 class User extends sequelize_1.Model {
     static config(db) {
-        return { sequelize: db, tableName: "User", timestamps: false };
+        return { sequelize: db, tableName: "Users", timestamps: false };
     }
     static associate(models) {
         this.belongsTo(models.Role, {
