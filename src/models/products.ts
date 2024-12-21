@@ -83,6 +83,12 @@ export class Product extends Model<InferAttributes<Product>, InferCreationAttrib
       otherKey: "categoryId",
       as: "categories",
     });
+    this.belongsToMany(models.ShopCart, {
+      through: models.ShopCartDetail,
+      foreignKey: "productId",
+      otherKey: "shopCartId",
+      as: "shopCartDetail",
+    });
     this.belongsTo(models.Brand, {
       foreignKey: "brandId",
       as: "brand",

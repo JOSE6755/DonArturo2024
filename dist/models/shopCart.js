@@ -26,6 +26,12 @@ class ShopCart extends sequelize_1.Model {
             foreignKey: "userId",
             as: "user",
         });
+        this.belongsToMany(models.Product, {
+            through: models.ShopCartDetail,
+            foreignKey: "shopCartId",
+            otherKey: "productId",
+            as: "shopCartDetail",
+        });
     }
 }
 exports.ShopCart = ShopCart;

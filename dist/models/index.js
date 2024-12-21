@@ -10,6 +10,7 @@ const client_1 = require("./client");
 const role_1 = require("./role");
 const user_1 = require("./user");
 const shopCart_1 = require("./shopCart");
+const shopCartDetail_1 = require("./shopCartDetail");
 function initModels(sequelize) {
     /*Primero iniciamos los modelos que no dependen de otros
       para asi evitar problemas*/
@@ -22,6 +23,7 @@ function initModels(sequelize) {
     role_1.Role.init(role_1.ROLE_SCHEMA, role_1.Role.config(sequelize));
     user_1.User.init(user_1.USER_SCHEMA, user_1.User.config(sequelize));
     shopCart_1.ShopCart.init(shopCart_1.SHOPCART_SCHEMA, shopCart_1.ShopCart.config(sequelize));
+    shopCartDetail_1.ShopCartDetail.init(shopCartDetail_1.SHOPCARTDETAIL_SCHEMA, shopCartDetail_1.ShopCartDetail.config(sequelize));
     brand_1.Brand.associate(sequelize.models);
     category_1.Category.associate(sequelize.models);
     state_1.State.associate(sequelize.models);
