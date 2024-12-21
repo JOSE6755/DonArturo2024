@@ -45,6 +45,12 @@ class Product extends sequelize_1.Model {
             otherKey: "categoryId",
             as: "categories",
         });
+        this.belongsToMany(models.ShopCart, {
+            through: models.ShopCartDetail,
+            foreignKey: "productId",
+            otherKey: "shopCartId",
+            as: "shopCartDetail",
+        });
         this.belongsTo(models.Brand, {
             foreignKey: "brandId",
             as: "brand",

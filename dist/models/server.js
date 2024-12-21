@@ -33,6 +33,7 @@ class Server {
         this.app.use(`${this.basePath}/brands`, routes_1.routes.brandRouter);
         this.app.use(`${this.basePath}/clients`, routes_1.routes.clientRouter);
         this.app.use(`${this.basePath}/users`, routes_1.routes.userRouter);
+        this.app.use(`${this.basePath}/shopCart`, routes_1.routes.shopCartRouter);
     }
     middlewares() {
         this.app.use((0, cors_1.default)());

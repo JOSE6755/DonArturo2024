@@ -8,6 +8,7 @@ import { Client, CLIENT_SCHEMA } from "./client";
 import { Role, ROLE_SCHEMA } from "./role";
 import { User, USER_SCHEMA } from "./user";
 import { ShopCart, SHOPCART_SCHEMA } from "./shopCart";
+import { ShopCartDetail, SHOPCARTDETAIL_SCHEMA } from "./shopCartDetail";
 
 export function initModels(sequelize: Sequelize) {
   /*Primero iniciamos los modelos que no dependen de otros
@@ -21,6 +22,7 @@ export function initModels(sequelize: Sequelize) {
   Role.init(ROLE_SCHEMA, Role.config(sequelize));
   User.init(USER_SCHEMA, User.config(sequelize));
   ShopCart.init(SHOPCART_SCHEMA, ShopCart.config(sequelize));
+  ShopCartDetail.init(SHOPCARTDETAIL_SCHEMA, ShopCartDetail.config(sequelize));
 
   Brand.associate(sequelize.models);
   Category.associate(sequelize.models);

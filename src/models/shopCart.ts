@@ -36,5 +36,11 @@ export class ShopCart extends Model<InferAttributes<ShopCart>, InferCreationAttr
       foreignKey: "userId",
       as: "user",
     });
+    this.belongsToMany(models.Product, {
+      through: models.ShopCartDetail,
+      foreignKey: "shopCartId",
+      otherKey: "productId",
+      as: "shopCartDetail",
+    });
   }
 }
