@@ -24,6 +24,7 @@ export class Server {
     this.app.use(`${this.basePath}/clients`, routes.clientRouter);
     this.app.use(`${this.basePath}/users`, routes.userRouter);
     this.app.use(`${this.basePath}/shopCart`, routes.shopCartRouter);
+    this.app.use(`${this.basePath}/order`, routes.orderRouter);
   }
 
   private middlewares(): void {

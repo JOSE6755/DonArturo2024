@@ -8,6 +8,7 @@ const brand_1 = require("./brand");
 const client_1 = require("./client");
 const user_1 = require("./user");
 const shopCart_1 = require("./shopCart");
+const order_1 = require("./order");
 exports.routes = {
     productsRouter: products_1.router,
     categoryRouter: category_1.router,
@@ -16,5 +17,6 @@ exports.routes = {
     clientRouter: client_1.router,
     userRouter: user_1.router,
     shopCartRouter: shopCart_1.router,
+    orderRouter: order_1.router,
 };
 //# sourceMappingURL=index.js.map

@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 export async function validateAllParams(req: Request, res: Response, next: NextFunction): Promise<void> {
   const errors: Result<ValidationError> = validationResult(req);
-  console.log(req.body);
   if (!errors.isEmpty()) {
     try {
       if (req.file?.path) {
