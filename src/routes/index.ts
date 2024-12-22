@@ -5,6 +5,7 @@ import { router as brandRouter } from "./brand";
 import { router as clientRouter } from "./client";
 import { router as userRouter } from "./user";
 import { router as shopCartRouter } from "./shopCart";
+import { router as orderRouter } from "./order";
 export const routes = {
   productsRouter,
   categoryRouter,
@@ -13,4 +14,5 @@ export const routes = {
   clientRouter,
   userRouter,
   shopCartRouter,
+  orderRouter,
 };

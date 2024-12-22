@@ -19,7 +19,6 @@ function validateAllParams(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a, _b;
         const errors = (0, express_validator_1.validationResult)(req);
-        console.log(req.body);
         if (!errors.isEmpty()) {
             try {
                 if ((_a = req.file) === null || _a === void 0 ? void 0 : _a.path) {

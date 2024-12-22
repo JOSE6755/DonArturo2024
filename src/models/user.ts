@@ -103,5 +103,9 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
       foreignKey: "idShopCart",
       as: "shopCart",
     });
+    this.hasMany(models.Order, {
+      foreignKey: "userId",
+      as: "orders",
+    });
   }
 }

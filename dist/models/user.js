@@ -62,6 +62,10 @@ class User extends sequelize_1.Model {
             foreignKey: "idShopCart",
             as: "shopCart",
         });
+        this.hasMany(models.Order, {
+            foreignKey: "userId",
+            as: "orders",
+        });
     }
 }
 exports.User = User;
