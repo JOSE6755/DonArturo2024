@@ -13,6 +13,11 @@ export async function getAllActiveProducts(req: Request, res: Response): Promise
   res.status(200).json({ products });
 }
 
+export async function getAllProductsActiveInactive(req: Request, res: Response): Promise<void> {
+  const products = await getAllProducts(false);
+  res.status(200).json({ products });
+}
+
 async function getAllProducts(onlyActive = false): Promise<Product[]> {
   const [products]: [Product[]] = await Promise.all([
     Product.findAll({

@@ -10,10 +10,14 @@ const validateAllParams_1 = require("../middlewares/validateAllParams");
 const parseBody_1 = require("../utils/parseBody");
 const updateProduct_1 = require("../validationSchema/product/updateProduct");
 const updateStateProduct_1 = require("../validationSchema/product/updateStateProduct");
+const validateToken_1 = require("../middlewares/validateToken");
+const role_1 = require("../enums/role");
+const validateRole_1 = require("../middlewares/validateRole");
 const router = (0, express_1.Router)();
 exports.router = router;
-router.get("/", products_1.getAllActiveProducts);
-router.post("/", fileHandler_1.upload.single("image"), parseBody_1.parseBodyToJson, (0, express_validator_1.checkSchema)(createProduct_1.CREATE_PRODUCT_SCHEMA), [validateAllParams_1.validateAllParams], products_1.createProduct);
-router.put("/changestate/:id", (0, express_validator_1.checkSchema)(updateStateProduct_1.UPDATE_STATE_PRODUCT_SCHEMA), validateAllParams_1.validateAllParams, products_1.changeProductState);
-router.put("/:id", [fileHandler_1.upload.single("image")], parseBody_1.parseBodyToJson, (0, express_validator_1.checkSchema)(updateProduct_1.UPDATE_PRODUCT_SCHEMA), validateAllParams_1.validateAllParams, products_1.updateProduct);
+router.get("/", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador, role_1.Roles.Usuario]), products_1.getAllActiveProducts);
+router.get("/allProducts", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), products_1.getAllProductsActiveInactive);
+router.post("/", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), fileHandler_1.upload.single("image"), parseBody_1.parseBodyToJson, (0, express_validator_1.checkSchema)(createProduct_1.CREATE_PRODUCT_SCHEMA), [validateAllParams_1.validateAllParams], products_1.createProduct);
+router.put("/changestate/:id", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), (0, express_validator_1.checkSchema)(updateStateProduct_1.UPDATE_STATE_PRODUCT_SCHEMA), validateAllParams_1.validateAllParams, products_1.changeProductState);
+router.put("/:id", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), [fileHandler_1.upload.single("image")], parseBody_1.parseBodyToJson, (0, express_validator_1.checkSchema)(updateProduct_1.UPDATE_PRODUCT_SCHEMA), validateAllParams_1.validateAllParams, products_1.updateProduct);
 //# sourceMappingURL=products.js.map

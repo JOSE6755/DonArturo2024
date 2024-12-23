@@ -9,6 +9,7 @@ const client_1 = require("./client");
 const user_1 = require("./user");
 const shopCart_1 = require("./shopCart");
 const order_1 = require("./order");
+const auth_1 = require("./auth");
 exports.routes = {
     productsRouter: products_1.router,
     categoryRouter: category_1.router,
@@ -18,5 +19,6 @@ exports.routes = {
     userRouter: user_1.router,
     shopCartRouter: shopCart_1.router,
     orderRouter: order_1.router,
+    authRouter: auth_1.router,
 };
 //# sourceMappingURL=index.js.map
