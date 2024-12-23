@@ -6,6 +6,7 @@ import { router as clientRouter } from "./client";
 import { router as userRouter } from "./user";
 import { router as shopCartRouter } from "./shopCart";
 import { router as orderRouter } from "./order";
+import { router as authRouter } from "./auth";
 export const routes = {
   productsRouter,
   categoryRouter,
@@ -15,4 +16,5 @@ export const routes = {
   userRouter,
   shopCartRouter,
   orderRouter,
+  authRouter,
 };

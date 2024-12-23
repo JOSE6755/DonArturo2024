@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllActiveProducts = getAllActiveProducts;
+exports.getAllProductsActiveInactive = getAllProductsActiveInactive;
 exports.createProduct = createProduct;
 exports.updateProduct = updateProduct;
 exports.changeProductState = changeProductState;
@@ -27,6 +28,12 @@ const path_1 = __importDefault(require("path"));
 function getAllActiveProducts(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const products = yield getAllProducts(true);
+        res.status(200).json({ products });
+    });
+}
+function getAllProductsActiveInactive(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const products = yield getAllProducts(false);
         res.status(200).json({ products });
     });
 }

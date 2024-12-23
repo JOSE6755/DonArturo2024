@@ -1,4 +1,4 @@
-import { QueryTypes } from "sequelize";
+import { Op, QueryTypes } from "sequelize";
 import { db } from "../database/config";
 import {
   IUserCreateAttributes,
@@ -13,7 +13,7 @@ import { encryptPassword } from "../utils/encryption";
 export interface IUserOperations {
   getUsers(): Promise<User[]>;
   //userExists(id: number): Promise<boolean>;
-  getUser(id: number): Promise<User>;
+  getUser(id?: number, email?: string): Promise<User>;
   createUser(data: IUserCreateAttributes): Promise<IUserFetchAttributes>;
   updateUser(data: IUserUpdateAttributes): Promise<IUserFetchAttributes>;
   updateState(data: IUserUpdateStateAttributes): Promise<IUserFetchAttributes>;
@@ -31,11 +31,27 @@ export class UserService implements IUserOperations {
     }
   }
 
-  public async getUser(id: number): Promise<User> {
+  public async getUser(id?: number, email?: string): Promise<User> {
     try {
-      const user: User | null = await User.findByPk(id, { attributes: { exclude: ["password", "creationDate"] } });
+      if (id) {
+        const user: User | null = await User.findByPk(id, {
+          attributes: { exclude: ["password", "creationDate"] },
+        });
+        if (!user) {
+          throw new Error(`User ${id} not found`);
+        }
+        return user;
+      }
+      const user: User | null = await User.findOne({
+        where: {
+          email: {
+            [Op.eq]: email,
+          },
+        },
+        include: User.associations.state,
+      });
       if (!user) {
-        throw new Error(`User ${id} not found`);
+        throw new Error(`User ${email} not found`);
       }
       return user;
     } catch (error: any) {

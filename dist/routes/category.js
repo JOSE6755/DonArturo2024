@@ -9,11 +9,14 @@ const createCategory_1 = require("../validationSchema/category/createCategory");
 const validateAllParams_1 = require("../middlewares/validateAllParams");
 const updateCategory_1 = require("../validationSchema/category/updateCategory");
 const updateCategoryState_1 = require("../validationSchema/category/updateCategoryState");
+const validateToken_1 = require("../middlewares/validateToken");
+const validateRole_1 = require("../middlewares/validateRole");
+const role_1 = require("../enums/role");
 exports.router = (0, express_1.Router)();
 const service = new category_1.CategoryService();
 const controller = new category_controller_1.CategoryController(service);
-exports.router.get("/", controller.getCategories.bind(controller));
-exports.router.post("/", (0, express_validator_1.checkSchema)(createCategory_1.CREATE_CATEGORY_SCHEMA), validateAllParams_1.validateAllParams, controller.createCategory.bind(controller));
-exports.router.put("/state/:id", (0, express_validator_1.checkSchema)(updateCategoryState_1.UPDATE_CATEGORY_STATE_SCHEMA), validateAllParams_1.validateAllParams, controller.updateCategoryState.bind(controller));
-exports.router.put("/:id", (0, express_validator_1.checkSchema)(updateCategory_1.UPDATE_CATEGORY_SCHEMA), validateAllParams_1.validateAllParams, controller.updateCategory.bind(controller));
+exports.router.get("/", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador, role_1.Roles.Usuario]), controller.getCategories.bind(controller));
+exports.router.post("/", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), (0, express_validator_1.checkSchema)(createCategory_1.CREATE_CATEGORY_SCHEMA), validateAllParams_1.validateAllParams, controller.createCategory.bind(controller));
+exports.router.put("/state/:id", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), (0, express_validator_1.checkSchema)(updateCategoryState_1.UPDATE_CATEGORY_STATE_SCHEMA), validateAllParams_1.validateAllParams, controller.updateCategoryState.bind(controller));
+exports.router.put("/:id", validateToken_1.validateToken, (0, validateRole_1.hasRole)([role_1.Roles.Operador]), (0, express_validator_1.checkSchema)(updateCategory_1.UPDATE_CATEGORY_SCHEMA), validateAllParams_1.validateAllParams, controller.updateCategory.bind(controller));
 //# sourceMappingURL=category.js.map

@@ -102,6 +102,7 @@
   },
   "include": [
     "**/src/**/*.ts",
-    "**/eslint.config.mjs"
+    "**/eslint.config.mjs",
+    "**/src/types/express.d.ts"
   ]
 }

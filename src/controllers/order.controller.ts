@@ -46,8 +46,9 @@ export class OrderController {
   }
   public async createOrder(req: Request, res: Response): Promise<void> {
     try {
+      const userId = req.userInfo?.userId;
       const data = req.body;
-      const newOrder: IOrderCreateAttributes = { ...data };
+      const newOrder: IOrderCreateAttributes = { userId: userId, ...data };
       const order = await this.orderService.createOrder(newOrder);
       res.status(200).json(order);
     } catch (error: any) {
