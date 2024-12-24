@@ -1,0 +1,1243 @@
+{
+	"info": {
+		"_postman_id": "bc2ff122-7f7e-4143-a9d2-edd48872a3b7",
+		"name": "DonArturoBackend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14593794"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "AllActiveProducts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllProducts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/products/allProducts",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"allProducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/HP/Pictures/HP Palette Sample Photos/SamplePhoto_2.jpg"
+								},
+								{
+									"key": "productInfo",
+									"value": "{\n    \"name\":\"producto1\",\n    \"code\":\"123456789100\",\n    \"stock\":10,\n    \"price\":12.50,\n    \n    \"stateId\":1,\n    \"brandId\":1\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/products",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/HP/Pictures/HP Palette Sample Photos/SamplePhoto_3.jpg"
+								},
+								{
+									"key": "productInfo",
+									"value": "{\n    \"name\":\"producto1\",\n    \"code\":\"123456789100\",\n    \"stock\":10,\n    \"price\":12.50,\n    \n    \"stateId\":1,\n    \"brandId\":1\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/products/38",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"38"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProductState",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/products/changeState/38",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"products",
+								"changeState",
+								"38"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/category",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"categoriadeprueba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/category",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"categoriadeprueba2222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/category/18",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "categoryState",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/category/state/18",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"category",
+								"state",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "States",
+			"item": [
+				{
+					"name": "states",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/states",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"states"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "state",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"estadoDePrueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/states",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"states"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "state",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"nombrePrruebaCambiado2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/states/8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"states",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brands",
+			"item": [
+				{
+					"name": "brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/brands",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"marcaDePrueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/brands",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"brands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "brand",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"nombreCambiado2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/brands/18",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"brands",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/clients",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commercialName\": \"Comercial ABC33333\",\r\n    \"address\": \"Calle Ficticia 123, Ciudad XXXXXXX\",\r\n    \"phoneNumber\": \"12345678\",\r\n    \"commercialEmail\": \"contacto@comercialabc22222.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clients",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commercialName\": \"Comercial ABC444444444444444444\",\r\n    \"address\": \"Calle Ficticia 123, Ciudad XXXXXXX\",\r\n    \"phoneNumber\": \"12345678\",\r\n    \"commercialEmail\": \"contacto@comercialabc22222.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clients/17",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clients",
+								"17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/19",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"names\": \"Jose2\",\r\n    \"lastNames\": \"Martinez2\",\r\n    \"email\": \"joseamvi582@gmail.com\",\r\n    \"password\":\"pruebita12345\",\r\n    \"phoneNumber\": \"99999999\",\r\n    \"birthDate\": \"2001-06-15\",\r\n    \"address\": \"Por mi casa\",\r\n    \"roleId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"names\": \"Juan2355\",\r\n    \"lastNames\": \"Pérez355\",\r\n    \"email\": \"juan.perez@email.com\",\r\n    \"password\": \"pruebita12345\",\r\n    \"phoneNumber\": \"99999999\",\r\n    \"birthDate\": \"2001-06-15\",\r\n    \"address\": \"Por mi casa2222\",\r\n    \"roleId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/21",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userState",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/state/21",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"state",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userPassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"UNAPRUEBITADECONTRASEÑA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/pass/21",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"pass",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShopCart",
+			"item": [
+				{
+					"name": "shopÇart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/shopCart/20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"shopCart",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insertShopCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 2,\r\n    \"price\": 110,\r\n    \"subTotal\": 220,\r\n    \"productId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/shopCart/20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"shopCart",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 1,\r\n    \"price\": 115,\r\n    \"subTotal\": 110,\r\n    \"productId\": 1,\r\n    \"shopCartDetailId\": 47\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/shopCart/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"shopCart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeProduct",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/shopCart/removeProduct/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"shopCart",
+								"removeProduct",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clearCart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/shopCart/emptyCart/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"shopCart",
+								"emptyCart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/order?stateId=4",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "stateId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ordersByUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/order/user/20",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"user",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orderDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/order/8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"total\":220\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/order",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orderState",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJyb2xlIjoxLCJpYXQiOjE3MzQ5MjcxMDEsImV4cCI6MTczNTAxMzUwMX0.jpTtC8uwBpfdE_yEPbbAwQ5MdO9Gn_19mmJS-F5ws7w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateId\":4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/order/8",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"order",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"joseamvi58@gmail.com\",\r\n    \"password\": \"pruebita12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
