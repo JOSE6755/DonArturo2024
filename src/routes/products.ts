@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  changeProductState,
-  createProduct,
-  getAllActiveProducts,
-  getAllProductsActiveInactive,
-  updateProduct,
-} from "../services/products";
+import { ProductService } from "../services/products";
 import { upload } from "../utils/fileHandler";
 import { checkSchema } from "express-validator";
 import { CREATE_PRODUCT_SCHEMA } from "../validationSchema/product/createProduct";
@@ -16,10 +10,27 @@ import { UPDATE_STATE_PRODUCT_SCHEMA } from "../validationSchema/product/updateS
 import { validateToken } from "../middlewares/validateToken";
 import { Roles } from "../enums/role";
 import { hasRole } from "../middlewares/validateRole";
+import { ProductController } from "../controllers/product.controller";
+import { GET_PRODUCT_SCHEMA } from "../validationSchema/product/getProduct";
 const router = Router();
-
-router.get("/", validateToken, hasRole([Roles.Operador, Roles.Usuario]), getAllActiveProducts);
-router.get("/allProducts", validateToken, hasRole([Roles.Operador]), getAllProductsActiveInactive);
+const service = new ProductService();
+const controller = new ProductController(service);
+router.get(
+  "/",
+  validateToken,
+  hasRole([Roles.Operador, Roles.Usuario]),
+  checkSchema(GET_PRODUCT_SCHEMA),
+  validateAllParams,
+  controller.getAllActiveProducts.bind(controller),
+);
+router.get(
+  "/allProducts",
+  validateToken,
+  hasRole([Roles.Operador]),
+  checkSchema(GET_PRODUCT_SCHEMA),
+  validateAllParams,
+  controller.getAllProductsActiveInactive.bind(controller),
+);
 router.post(
   "/",
   validateToken,
@@ -28,7 +39,7 @@ router.post(
   parseBodyToJson,
   checkSchema(CREATE_PRODUCT_SCHEMA),
   [validateAllParams],
-  createProduct,
+  controller.createProduct.bind(controller),
 );
 router.put(
   "/changestate/:id",
@@ -36,16 +47,16 @@ router.put(
   hasRole([Roles.Operador]),
   checkSchema(UPDATE_STATE_PRODUCT_SCHEMA),
   validateAllParams,
-  changeProductState,
+  controller.changeProductState.bind(controller),
 );
 router.put(
   "/:id",
   validateToken,
   hasRole([Roles.Operador]),
-  [upload.single("image")],
+  upload.single("image"),
   parseBodyToJson,
   checkSchema(UPDATE_PRODUCT_SCHEMA),
   validateAllParams,
-  updateProduct,
+  controller.updateProduct.bind(controller),
 );
 export { router };

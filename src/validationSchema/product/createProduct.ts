@@ -50,4 +50,21 @@ export const CREATE_PRODUCT_SCHEMA: Schema = {
     },
     notEmpty: { errorMessage: "brandId is required" },
   },
+  "productInfo.categories": {
+    isArray: {
+      errorMessage: "categories must be an array",
+      options: {
+        min: 1,
+      },
+    },
+    notEmpty: { errorMessage: "categories is required" },
+  },
+  "productInfo.categories.*": {
+    isInt: {
+      errorMessage: "each category must be an integer greather than 0",
+      options: {
+        min: 1,
+      },
+    },
+  },
 };
