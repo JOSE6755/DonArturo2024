@@ -3,7 +3,7 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:3000/api/v1",
 });
 
-const excludedUrls = ["/auth/login"];
+const excludedUrls = ["/auth/login", "/users/register"];
 axiosInstance.interceptors.request.use(
   (config) => {
     const normalizedUrl = new URL(config.url, config.baseURL).pathname;

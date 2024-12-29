@@ -20,7 +20,7 @@ import { validators } from "../validators/index";
 import { yupResolver } from "@hookform/resolvers/yup";
 import TextFields from "../components/TextField/TextFields";
 import { login } from "../services/login";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function Login() {
   const {
     control,
@@ -99,7 +99,7 @@ export default function Login() {
             onSubmit={handleSubmit(submitForm)}
             noValidate
           >
-            <Stack spacing={2}>
+            <Stack spacing={2} justifyContent="center" alignItems="center">
               <Typography variant="h4" textAlign="center" gutterBottom>
                 LOGIN
               </Typography>
@@ -164,6 +164,7 @@ export default function Login() {
               >
                 Ingresar
               </Button>
+              <Link to="/userRegister">Dont have an account?</Link>
             </Stack>
           </Box>
         </Box>
