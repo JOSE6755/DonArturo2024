@@ -32,7 +32,7 @@ export class OrderService implements IOrderOperation {
         },
         attributes: ["orderId", "total", "creationDate", "stateId"],
       });
-      return result as IOrderFetchAttributes[];
+      return result as unknown as IOrderFetchAttributes[];
     } catch (error: any) {
       console.error(error);
       throw new Error(`Error fetching orders: ${error.message}`);
@@ -43,14 +43,19 @@ export class OrderService implements IOrderOperation {
       throw new Error(`User ${userId} does not exist`);
     }
     try {
-      const result = await Order.findAll({
-        where: {
-          userId: {
-            [Op.eq]: userId,
-          },
-        },
-        attributes: ["orderId", "total", "creationDate", "stateId"],
-      });
+      const result = await db.query("SELECT OrderId,Total,CreationDate,State FROM OrderByUser WHERE UserId = $1", {
+        bind: [userId],
+        type: QueryTypes.SELECT,
+        raw: true,
+      }); //await Order.findAll({
+      //   where: {
+      //     userId: {
+      //       [Op.eq]: userId,
+      //     },
+      //   },
+      //   attributes: ["orderId", "total", "creationDate", "stateId"],
+      //   include: {},
+      // });
       return result as IOrderFetchAttributes[];
     } catch (error: any) {
       console.error(error);

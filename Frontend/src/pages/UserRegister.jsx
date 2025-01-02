@@ -5,6 +5,9 @@ import {
   Typography,
   Box,
   Button,
+  Fade,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -16,6 +19,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validators } from "../validators";
 import dayjs from "dayjs";
 import { createUser } from "../services/user";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function UserRegister() {
   const {
@@ -36,14 +41,40 @@ export default function UserRegister() {
     },
     resolver: yupResolver(validators.REGISTER_VALIDATION_SCHEMA),
   });
+  const [alert, setAlert] = useState({
+    show: false,
+    severity: "error",
+    msg: "",
+    type: "",
+  });
+  const navigate = useNavigate();
 
   async function onSubmit(data) {
     data.birthDate = dayjs(data.birthDate).format("YYYY-MM-DD");
     try {
       const result = await createUser(data);
-      console.log(result);
+      if (result) {
+        setAlert({
+          show: true,
+          severity: "success",
+          msg: "Everything went well, welcome!",
+          type: "Success",
+        });
+        setTimeout(() => {
+          setAlert({ ...alert, show: false });
+          navigate("/login");
+        }, 5000);
+      }
     } catch (error) {
-      console.log(error);
+      setAlert({
+        show: true,
+        severity: "error",
+        msg: error.data.msg,
+        type: "Error",
+      });
+      setTimeout(() => {
+        setAlert({ ...alert, show: false });
+      }, 5000);
     }
   }
 
@@ -69,6 +100,12 @@ export default function UserRegister() {
         <Typography variant="h2" textAlign="center" gutterBottom>
           Register Form
         </Typography>
+        <Fade in={alert.show} unmountOnExit={true}>
+          <Alert severity={alert.severity}>
+            <AlertTitle>{alert.type}</AlertTitle>
+            {alert.msg}
+          </Alert>
+        </Fade>
         <Box
           sx={{
             width: "100%",
@@ -187,9 +224,11 @@ export default function UserRegister() {
                 label="Role"
                 fullWidth={true}
                 error={errors}
+                keyName="roleId"
+                type="role"
                 items={[
-                  { roleId: 1, rolename: "User" },
-                  { roleId: 2, rolename: "Operator" },
+                  { roleId: 1, name: "User" },
+                  { roleId: 2, name: "Operator" },
                 ]}
               />
             </Grid2>

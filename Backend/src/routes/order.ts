@@ -25,6 +25,7 @@ router.get(
   validateAllParams,
   controller.getAllOrders.bind(controller),
 );
+router.get("/user", validateToken, hasRole([Roles.Usuario]), controller.getAllOrderByUser.bind(controller));
 router.get(
   "/:id",
   validateToken,
@@ -32,14 +33,6 @@ router.get(
   checkSchema(GET_ORDER_DETAIL_SCHEMA),
   validateAllParams,
   controller.getOrderDetail.bind(controller),
-);
-router.get(
-  "/user/:id",
-  validateToken,
-  hasRole([Roles.Usuario]),
-  checkSchema(GET_ALL_ORDERS_BY_USER_SCHEMA),
-  validateAllParams,
-  controller.getAllOrderByUser.bind(controller),
 );
 router.post(
   "/",

@@ -37,6 +37,10 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
       foreignKey: "userId",
       as: "orders",
     });
+    this.belongsTo(models.State, {
+      foreignKey: "stateId",
+      as: "state",
+    });
     this.belongsToMany(models.Product, {
       through: models.OrderDetail,
       foreignKey: "orderId",
