@@ -9,6 +9,7 @@ export default function TextFields({
   fullWidth,
   error,
   slotProps,
+  autoFocus = false,
 }) {
   return (
     <Controller
@@ -17,6 +18,7 @@ export default function TextFields({
       render={({ field }) => (
         <TextField
           {...field}
+          autoFocus={autoFocus}
           label={label}
           type={type}
           fullWidth={fullWidth}
@@ -38,4 +40,5 @@ TextFields.propTypes = {
   fullWidth: PropTypes.bool,
   error: PropTypes.object.isRequired,
   slotProps: PropTypes.object.isRequired,
+  autoFocus: PropTypes.bool,
 };

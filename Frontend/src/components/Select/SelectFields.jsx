@@ -9,8 +9,9 @@ export default function SelectFields({
   fullWidth,
   error,
   items,
+  keyName,
+  type = "role",
 }) {
-  console.log(items);
   return (
     <Controller
       name={name}
@@ -18,17 +19,19 @@ export default function SelectFields({
       render={({ field }) => (
         <TextField
           {...field}
+          sx={{ maxHeight: "20rem" }}
           label={label}
           fullWidth={fullWidth}
           variant="standard"
           select
-          defaultValue="None"
+          defaultValue={0}
           error={error[name] ? true : false}
           helperText={error[name] ? error[name].message : ""}
         >
+          <MenuItem value={0}>{type === "role" ? "none" : "all"}</MenuItem>
           {items.map((item) => (
-            <MenuItem key={item.roleId} value={item.roleId}>
-              {item.rolename}
+            <MenuItem key={item[keyName]} value={item[keyName]}>
+              {item.name}
             </MenuItem>
           ))}
         </TextField>
@@ -44,4 +47,6 @@ SelectFields.propTypes = {
   fullWidth: PropTypes.bool,
   error: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
+  keyName: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
