@@ -17,6 +17,6 @@ export function validateToken(req: Request, res: Response, next: NextFunction) {
     next();
   } catch (error: any) {
     console.error(error);
-    res.status(500).json({ msg: `Error validating token: ${error.message}` });
+    res.status(401).json({ msg: `Error validating token: ${error.message}` });
   }
 }

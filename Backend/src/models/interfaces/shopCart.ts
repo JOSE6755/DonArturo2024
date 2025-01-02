@@ -13,6 +13,7 @@ export interface IShopCartInsertAttributes extends IShopCartCommonAttributes, IS
 
 export interface IShopCartFetchAttributes extends IShopCartCommonAttributes {
   productId: number;
+  name: string;
 }
 
 export interface IShopCartFetchTotalAttributes {

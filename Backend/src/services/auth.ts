@@ -3,7 +3,7 @@ import { comparePassword } from "../utils/encryption";
 import { IUserOperations } from "./user";
 import jwt from "jsonwebtoken";
 export interface IAuthOperations {
-  generateJWT(email: string, password: string): Promise<string>;
+  generateJWT(email: string, password: string): Promise<{ token: string; roleId: number; shopCartId: number }>;
 }
 
 export class AuthService implements IAuthOperations {
@@ -11,7 +11,10 @@ export class AuthService implements IAuthOperations {
   constructor(userService: IUserOperations) {
     this.userService = userService;
   }
-  public async generateJWT(email: string, password: string): Promise<string> {
+  public async generateJWT(
+    email: string,
+    password: string,
+  ): Promise<{ token: string; roleId: number; shopCartId: number }> {
     try {
       const user: User = await this.userService.getUser(undefined, email);
       if (!(await comparePassword(password, user))) {
@@ -23,7 +26,7 @@ export class AuthService implements IAuthOperations {
       const token = jwt.sign({ userId: user.userId, role: user.roleId }, process.env.SECRET_KEY || "secreto", {
         expiresIn: "1d",
       });
-      return token;
+      return { token: token, roleId: user.roleId!, shopCartId: user.shopCart!.idShopCart! };
     } catch (error: any) {
       console.error(error);
       throw new Error(`Error generating JWT: ${error.message}`);

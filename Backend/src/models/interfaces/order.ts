@@ -18,7 +18,7 @@ export interface IOrderUpdateStateAttributes extends IOrderCommonAttributes {
 export interface IOrderFetchAttributes extends IOrderCommonAttributes {
   total: number;
   creationDate: Date;
-  stateId: number;
+  state: string;
 }
 
 export interface IOrderFetchDetailAttributes extends IOrderCommonAttributes {
@@ -26,4 +26,5 @@ export interface IOrderFetchDetailAttributes extends IOrderCommonAttributes {
   quantity: number;
   price: number;
   subTotal: number;
+  name: string;
 }

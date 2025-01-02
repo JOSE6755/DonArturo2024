@@ -48,7 +48,7 @@ export class UserService implements IUserOperations {
             [Op.eq]: email,
           },
         },
-        include: User.associations.state,
+        include: [User.associations.state, User.associations.role, User.associations.shopCart],
       });
       if (!user) {
         throw new Error(`User ${email} not found`);

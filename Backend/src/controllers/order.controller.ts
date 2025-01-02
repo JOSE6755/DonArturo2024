@@ -25,7 +25,7 @@ export class OrderController {
 
   public async getAllOrderByUser(req: Request, res: Response): Promise<void> {
     try {
-      const userId = Number(req.params.id);
+      const userId = req.userInfo!.userId;
       const order: IOrderFetchAttributes[] = await this.orderService.getAllOrderByUser(userId);
       res.status(200).json(order);
     } catch (error: any) {

@@ -11,7 +11,7 @@ export class AuthController {
     try {
       const data = req.body as { email: string; password: string };
       const token = await this.authService.generateJWT(data.email, data.password);
-      res.status(200).send({ token: token });
+      res.status(200).send(token);
     } catch (error: any) {
       console.error(error);
       res.status(500).send({ msg: `Error during login: ${error.message}` });

@@ -17,6 +17,8 @@ const service = new UserService();
 const controller = new UserController(service);
 
 router.get("/", validateToken, hasRole([Roles.Operador]), controller.getUsers.bind(controller));
+router.post("/register", checkSchema(CREATE_USER_SCHEMA), validateAllParams, controller.createUser.bind(controller));
+
 router.get(
   "/:id",
   validateToken,

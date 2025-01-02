@@ -21,6 +21,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import TextFields from "../components/TextField/TextFields";
 import { login } from "../services/login";
 import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 export default function Login() {
   const {
     control,
@@ -34,6 +35,7 @@ export default function Login() {
     resolver: yupResolver(validators.LOGIN_VALIDATOR_SCHEMA),
   });
   const [visibility, setVisibility] = useState(false);
+  const { setAuth } = useAuth();
   const [response, setResponse] = useState({
     status: null,
     msg: "",
@@ -41,12 +43,14 @@ export default function Login() {
   });
   const navigate = useNavigate();
   async function submitForm(data) {
-    console.log(data);
     try {
-      if (await login(data)) {
+      const response = await login(data);
+      if (response) {
+        setAuth(response);
         navigate("/home");
       }
     } catch (error) {
+      console.log(error);
       setResponse({
         status: error.status,
         msg: error.data.msg,
