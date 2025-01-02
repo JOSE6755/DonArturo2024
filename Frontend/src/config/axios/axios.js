@@ -8,14 +8,24 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const normalizedUrl = new URL(config.url, config.baseURL).pathname;
     if (!excludedUrls.includes(normalizedUrl)) {
-      config.headers["Authorization"] = `Bearer ${localStorage.getItem(
-        "token"
-      )}`;
+      const userInfo = JSON.parse(localStorage.getItem("user"));
+      const token = userInfo.token;
+      config.headers["Authorization"] = token ? `Bearer ${token}` : "";
     }
     return config;
   },
   (error) => {
     return Promise.reject(error);
+  }
+);
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      localStorage.removeItem("user");
+    }
   }
 );
 
