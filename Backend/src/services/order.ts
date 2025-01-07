@@ -30,6 +30,7 @@ export class OrderService implements IOrderOperation {
             [Op.eq]: stateId,
           },
         },
+        include: ["state"],
         attributes: ["orderId", "total", "creationDate", "stateId"],
       });
       return result as unknown as IOrderFetchAttributes[];

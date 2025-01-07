@@ -26,6 +26,7 @@ export const FilterForm = forwardRef(
       border = null,
       borderColor = "primary.main",
       applyFilter,
+      roleId = 1,
     },
     ref
   ) => {
@@ -40,6 +41,7 @@ export const FilterForm = forwardRef(
         price: "ASC",
         size: 5,
         category: 0,
+        state: 1,
       },
     });
     useEffect(() => {
@@ -131,6 +133,34 @@ export const FilterForm = forwardRef(
               )}
             ></Controller>
           </FormControl>
+          {roleId === 2 ? (
+            <FormControl>
+              <FormLabel htmlFor="formGroup">State</FormLabel>
+              <Controller
+                name="state"
+                control={control}
+                render={({ field }) => (
+                  <RadioGroup id="formGroup" value={3} row {...field}>
+                    <FormControlLabel
+                      value={3}
+                      control={<Radio />}
+                      label="All"
+                    />
+                    <FormControlLabel
+                      value={1}
+                      control={<Radio />}
+                      label="Active"
+                    />
+                    <FormControlLabel
+                      value={2}
+                      control={<Radio />}
+                      label="Inactive"
+                    />
+                  </RadioGroup>
+                )}
+              ></Controller>
+            </FormControl>
+          ) : null}
           <FormControl>
             <FormLabel htmlFor="productsPerPage">Products per page</FormLabel>
             <Controller
@@ -155,7 +185,11 @@ export const FilterForm = forwardRef(
             type="categories"
           />
         </Stack>
-        <Button type="submit" variant="contained" sx={{ width: "50%" }}>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ width: "50%", "&:hover": { backgroundColor: "primary.light" } }}
+        >
           Search
         </Button>
       </Box>
@@ -168,5 +202,6 @@ FilterForm.propTypes = {
   border: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   borderColor: PropTypes.string,
   applyFilter: PropTypes.func.isRequired,
+  roleId: PropTypes.number,
 };
 FilterForm.displayName = "FilterForm";

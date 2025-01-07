@@ -10,6 +10,8 @@ export interface ResponseProductsAttributes extends CommonPorductAttributes {
   brand: string;
   stateId: number;
   productId: number;
+  categories: string;
+  brandId: number;
 }
 
 export interface CreateProductAttributes extends CommonPorductAttributes {
@@ -43,4 +45,5 @@ export interface FilterProductAttributes {
   categories: string[];
   page: number;
   size: number;
+  stateId: number;
 }

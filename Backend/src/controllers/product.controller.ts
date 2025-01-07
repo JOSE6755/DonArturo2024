@@ -23,7 +23,14 @@ export class ProductController {
       } = req.query as unknown as { price: string; name: string; page: string; size: string; categories: string };
 
       const categoryArray = categories ? categories.split(",") : [];
-      const options = { price: price, name: name, categories: categoryArray, page: Number(page), size: Number(size) };
+      const options = {
+        price: price,
+        name: name,
+        categories: categoryArray,
+        page: Number(page),
+        size: Number(size),
+        stateId: 1,
+      };
       console.log(options);
       const products = await this.productService.getAllActiveProducts(options);
       res.status(200).json(products);
@@ -41,16 +48,42 @@ export class ProductController {
         page = 1,
         size = 10,
         categories = "",
-      } = req.query as unknown as { price: string; name: string; page: string; size: string; categories: string };
+        stateId = 1,
+      } = req.query as unknown as {
+        price: string;
+        name: string;
+        page: string;
+        size: string;
+        categories: string;
+        stateId: number;
+      };
 
       const categoryArray = categories ? categories.split(",") : [];
-      const options = { price: price, name: name, categories: categoryArray, page: Number(page), size: Number(size) };
-      console.log(options);
+      const options = {
+        price: price,
+        name: name,
+        categories: categoryArray,
+        page: Number(page),
+        size: Number(size),
+        stateId: stateId,
+      };
+
       const products = await this.productService.getAllProductsActiveInactive(options);
       res.status(200).json(products);
     } catch (error: any) {
       console.error(error);
       res.status(500).json({ msg: `Error fetching all products: ${error.message}` });
+    }
+  }
+
+  public async getSingleProduct(req: Request, res: Response): Promise<void> {
+    try {
+      const productId = Number(req.params.id);
+      const product = await this.productService.getSingleProduct(productId);
+      res.status(200).json(product);
+    } catch (error: any) {
+      console.error(error);
+      res.status(500).json({ msg: `Error fetching single product: ${error.message}` });
     }
   }
   public async createProduct(req: Request, res: Response): Promise<void> {

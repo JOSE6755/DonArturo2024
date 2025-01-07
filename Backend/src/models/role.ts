@@ -21,13 +21,13 @@ export class Role extends Model<InferAttributes<Role>, InferCreationAttributes<R
     tableName: string;
     timestamps: boolean;
   } {
-    return { sequelize: db, tableName: "Role", timestamps: false };
+    return { sequelize: db, tableName: "Roles", timestamps: false };
   }
 
   static associate(models): void {
     this.hasMany(models.User, {
-      foreignKey: "userId",
-      as: "users",
+      foreignKey: "roleId",
+      as: "role",
     });
   }
 }

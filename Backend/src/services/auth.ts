@@ -20,7 +20,8 @@ export class AuthService implements IAuthOperations {
       if (!(await comparePassword(password, user))) {
         throw new Error(`Incorrect password`);
       }
-      if (user.state?.stateId === 2) {
+      console.log(user);
+      if (user.stateId === 2) {
         throw new Error(`User ${email} is not active`);
       }
       const token = jwt.sign({ userId: user.userId, role: user.roleId }, process.env.SECRET_KEY || "secreto", {

@@ -13,7 +13,7 @@ export function validateToken(req: Request, res: Response, next: NextFunction) {
       role: number;
     };
     req.userInfo = payload;
-    console.log(payload);
+
     next();
   } catch (error: any) {
     console.error(error);

@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { FilterForm } from "../components/FilterForm/FilterForm";
-import { getAllActiveProducts } from "../services/products";
+import { getAllProducts } from "../services/products";
 import ProductCard from "../components/ProductCard/ProductCard";
 
-export default function ActiveProducts() {
+export default function AllProducts() {
   const [showModal, setShowModal] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurretPage] = useState(1);
@@ -27,7 +27,6 @@ export default function ActiveProducts() {
     name: "%%",
     category: null,
   });
-
   const [products, setProducts] = useState([]);
   useEffect(() => {
     getProducts({});
@@ -41,7 +40,7 @@ export default function ActiveProducts() {
     category = null,
   }) {
     try {
-      const res = await getAllActiveProducts({
+      const res = await getAllProducts({
         price,
         size,
         page,
@@ -112,15 +111,12 @@ export default function ActiveProducts() {
       ></Divider>
       <Box
         sx={{
-          width: {
-            xs: "100%",
-            lg: "80%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 3,
-          },
+          width: { xs: "100%", lg: "80%" },
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 3,
         }}
       >
         <Grid2
@@ -153,6 +149,7 @@ export default function ActiveProducts() {
           </Grid2>
           <ProductCard
             products={products}
+            roleId={2}
             handleShowModalCart={handleShowModal}
           />
         </Grid2>
@@ -171,6 +168,7 @@ export default function ActiveProducts() {
           onChange={handlePaginationChange}
         />
       </Box>
+
       <Modal
         open={showModal}
         onClose={() => {

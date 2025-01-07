@@ -13,11 +13,9 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { insertCart } from "../../services/shopCart";
-import useAuth from "../../hooks/useAuth";
+import { editProduct } from "../../services/products";
 
-export default function AddCart({ show = false, handleShow, product }) {
-  const { auth } = useAuth();
+export default function AddStock({ show = false, handleShow, product }) {
   const [productQuantity, setProductQuantity] = useState(1);
   const [showAlert, setShowAlert] = useState({
     msg: "",
@@ -37,24 +35,27 @@ export default function AddCart({ show = false, handleShow, product }) {
   }
 
   function handleProductQuantity(quantity) {
-    if (quantity <= product.Stock) {
+    if (quantity > 0) {
       setProductQuantity(quantity);
     }
   }
 
-  async function addCart(quantity) {
+  async function addStock(quantity) {
     const data = {
-      quantity: quantity,
+      name: product.Name,
+      code: product.Code,
+      stock: product.Stock + quantity,
       price: product.Price,
-      subTotal: quantity * product.Price,
-      productId: product.productId,
-      shopCartId: auth.shopCartId,
+      stateId: product.StateId,
+      brandId: product.BrandId,
+      categories: product.Categories.split(","),
     };
     try {
-      const res = await insertCart({ ...data });
+      const res = await editProduct(product.productId, data, null);
       if (res) {
+        product.Stock = product.Stock + quantity;
         setShowAlert({
-          msg: "Product added to your cart!",
+          msg: "Product Stock updated successfully",
           variant: "success",
           show: true,
           type: "Success",
@@ -65,8 +66,9 @@ export default function AddCart({ show = false, handleShow, product }) {
         }, 5000);
       }
     } catch (error) {
+      console.error(error);
       setShowAlert({
-        msg: error.message,
+        msg: error.data.msg,
         variant: "error",
         show: true,
         type: "Error",
@@ -77,6 +79,7 @@ export default function AddCart({ show = false, handleShow, product }) {
       }, 5000);
     }
   }
+
   return (
     <Modal
       open={show}
@@ -133,16 +136,6 @@ export default function AddCart({ show = false, handleShow, product }) {
                     gap: 3,
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      handleProductQuantity(productQuantity - 1);
-                    }}
-                    disabled={productQuantity === 1}
-                    sx={{ "&:hover": { backgroundColor: "primary.light" } }}
-                  >
-                    -
-                  </Button>
                   <Paper
                     sx={{
                       width: "3rem",
@@ -159,15 +152,10 @@ export default function AddCart({ show = false, handleShow, product }) {
                     onClick={() => {
                       handleProductQuantity(productQuantity + 1);
                     }}
-                    disabled={productQuantity === product.Stock}
-                    sx={{ "&:hover": { backgroundColor: "primary.light" } }}
                   >
                     +
                   </Button>
                 </Box>
-                <Typography variant="h6">
-                  Total: {product.Price * productQuantity}
-                </Typography>
 
                 <Button
                   variant="contained"
@@ -176,11 +164,10 @@ export default function AddCart({ show = false, handleShow, product }) {
                     productQuantity < 1 ? true : showAlert.show ? true : false
                   }
                   onClick={() => {
-                    addCart(productQuantity);
+                    addStock(productQuantity);
                   }}
-                  sx={{ "&:hover": { backgroundColor: "success.light" } }}
                 >
-                  Submit
+                  Add Stock
                 </Button>
               </Stack>
             </Box>
@@ -191,7 +178,7 @@ export default function AddCart({ show = false, handleShow, product }) {
   );
 }
 
-AddCart.propTypes = {
+AddStock.propTypes = {
   show: PropTypes.bool.isRequired,
   handleShow: PropTypes.func.isRequired,
   product: PropTypes.object.isRequired,

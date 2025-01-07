@@ -57,8 +57,12 @@ export default function History() {
             <Typography variant="h4" alignSelf="start" letterSpacing={2}>
               Order History
             </Typography>
-            <TableContainer component={Paper} elevation={3}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer
+              component={Paper}
+              elevation={3}
+              sx={{ maxHeight: "40rem" }}
+            >
+              <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell>Order Date</TableCell>
@@ -84,6 +88,9 @@ export default function History() {
                           component={Link}
                           to={`/order/detail/${order.OrderId}`}
                           endIcon={<ReceiptLongIcon />}
+                          sx={{
+                            "&:hover": { backgroundColor: "primary.light" },
+                          }}
                         >
                           Check Detail
                         </Button>
@@ -96,7 +103,6 @@ export default function History() {
           </>
         ) : (
           <>
-            {" "}
             <Typography variant="h2">You dont have any order :(</Typography>
             <Button variant="contained" component={Link} to="/home">
               Make some orders :D

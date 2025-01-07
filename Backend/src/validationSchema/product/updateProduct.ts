@@ -44,13 +44,13 @@ export const UPDATE_PRODUCT_SCHEMA: Schema = {
     },
     notEmpty: { errorMessage: "price is required" },
   },
-  "productInfo.stateId": {
-    isInt: {
-      errorMessage: "stateId must be an integer between 1 and 5",
-      options: { min: 1, max: 5 },
-    },
-    notEmpty: { errorMessage: "stateId is required" },
-  },
+  // "productInfo.stateId": {
+  //   isInt: {
+  //     errorMessage: "stateId must be an integer between 1 and 5",
+  //     options: { min: 1, max: 5 },
+  //   },
+  //   notEmpty: { errorMessage: "stateId is required" },
+  // },
   "productInfo.brandId": {
     isInt: {
       errorMessage: "brandId must be an integer greater than or equal to 1",

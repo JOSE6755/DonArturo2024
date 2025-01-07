@@ -12,6 +12,7 @@ import { Roles } from "../enums/role";
 import { hasRole } from "../middlewares/validateRole";
 import { ProductController } from "../controllers/product.controller";
 import { GET_PRODUCT_SCHEMA } from "../validationSchema/product/getProduct";
+import { GET_SINGLE_PRODUCT_SCHEMA } from "../validationSchema/product/getSingleProduct";
 const router = Router();
 const service = new ProductService();
 const controller = new ProductController(service);
@@ -30,6 +31,14 @@ router.get(
   checkSchema(GET_PRODUCT_SCHEMA),
   validateAllParams,
   controller.getAllProductsActiveInactive.bind(controller),
+);
+router.get(
+  "/:id",
+  validateToken,
+  hasRole([Roles.Operador]),
+  checkSchema(GET_SINGLE_PRODUCT_SCHEMA),
+  validateAllParams,
+  controller.getSingleProduct.bind(controller),
 );
 router.post(
   "/",

@@ -47,7 +47,14 @@ export default function Login() {
       const response = await login(data);
       if (response) {
         setAuth(response);
-        navigate("/home");
+        console.log(response);
+        if (response.roleId === 2) {
+          navigate("/orders");
+          return;
+        } else {
+          navigate("/productCatalogue");
+          return;
+        }
       }
     } catch (error) {
       console.log(error);

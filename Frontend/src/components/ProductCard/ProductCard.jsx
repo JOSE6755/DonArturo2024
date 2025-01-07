@@ -11,14 +11,22 @@ import PropTypes from "prop-types";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddCart from "../AddCart/AddCart";
 import { useState } from "react";
+import AddStock from "../AddStock/AddStock";
+import ProductState from "../ProductState/ProductState";
+import { Link } from "react-router-dom";
 
-export default function ProductCard({ products = [] }) {
-  const [showModalCart, setShowModalCart] = useState(false);
+export default function ProductCard({ products = [], roleId = 1 }) {
+  const [showModal, setshowModal] = useState(false);
+  const [showProductState, setShowProductState] = useState(false);
   const [productSelected, setProductSelected] = useState({});
 
-  function handleShowModalCart(product) {
+  function handleshowModal(product) {
     setProductSelected(product);
-    setShowModalCart(!showModalCart);
+    setshowModal(!showModal);
+  }
+  function handleShowModalProductState(product) {
+    setProductSelected(product);
+    setShowProductState(!showProductState);
   }
 
   if (products.length === 0) {
@@ -34,13 +42,40 @@ export default function ProductCard({ products = [] }) {
     <>
       {products.map((product) => (
         <Grid2 size={{ xs: 10, sm: 8, md: 5, lg: 4 }} key={product.productId}>
-          <Paper elevation={3} sx={{ opacity: product.Stock <= 0 ? 0.7 : 1 }}>
+          <Paper
+            elevation={3}
+            sx={{
+              opacity: roleId === 1 ? (product.Stock <= 0 ? 0.7 : 1) : 1,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Box
-              component="img"
-              src={`http://localhost:3000/productImage/${product.Image}`}
-              sx={{ width: "100%", objectFit: "contain" }}
-            />
-            <Box sx={{ width: "100%", padding: 1 }}>
+              sx={{ width: "100%", maxHeight: "20rem", overflowY: "hidden" }}
+            >
+              <Box
+                component="img"
+                src={`http://localhost:3000/productImage/${product.Image}`}
+                sx={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                width: "100%",
+                padding: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+              }}
+            >
               <Stack
                 sx={{ width: "100%", flexWrap: "wrap" }}
                 direction="row"
@@ -65,35 +100,117 @@ export default function ProductCard({ products = [] }) {
                   Brand: {product.Brand}
                 </Typography>
               </Stack>
-              <Button
-                sx={{
-                  padding: 1,
-                  mt: 1,
-                  "&:hover": { backgroundColor: "primary.light" },
-                }}
-                variant="contained"
-                size="small"
-                endIcon={<AddShoppingCartIcon />}
-                disabled={product.Stock <= 0}
-                onClick={() => {
-                  handleShowModalCart(product);
-                }}
-              >
-                Agregar al carrito
-              </Button>
+              {roleId === 1 ? (
+                <Button
+                  sx={{
+                    padding: 1,
+                    mt: 1,
+                    "&:hover": { backgroundColor: "primary.light" },
+                  }}
+                  variant="contained"
+                  size="small"
+                  endIcon={<AddShoppingCartIcon />}
+                  disabled={product.Stock <= 0}
+                  onClick={() => {
+                    handleshowModal(product);
+                  }}
+                >
+                  Add to cart
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    sx={{
+                      padding: 1,
+                      mt: 1,
+                      "&:hover": { backgroundColor: "primary.light" },
+                    }}
+                    variant="contained"
+                    size="small"
+                    onClick={() => {
+                      handleshowModal(product);
+                    }}
+                  >
+                    Add to stock
+                  </Button>
+                  {product.StateId === 1 ? (
+                    <Button
+                      sx={{
+                        padding: 1,
+                        mt: 1,
+                        "&:hover": { backgroundColor: "error.light" },
+                      }}
+                      color="error"
+                      variant="contained"
+                      size="small"
+                      onClick={() => {
+                        handleShowModalProductState(product);
+                      }}
+                    >
+                      Inactivate
+                    </Button>
+                  ) : (
+                    <Button
+                      sx={{
+                        padding: 1,
+                        mt: 1,
+                        "&:hover": { backgroundColor: "success.light" },
+                      }}
+                      variant="contained"
+                      color="success"
+                      size="small"
+                      onClick={() => {
+                        handleShowModalProductState(product);
+                      }}
+                    >
+                      Activate
+                    </Button>
+                  )}
+                  <Button
+                    sx={{
+                      padding: 1,
+                      mt: 1,
+                      "&:hover": { backgroundColor: "primary.light" },
+                    }}
+                    variant="contained"
+                    size="small"
+                    component={Link}
+                    to={`/editProduct/${product.productId}`}
+                  >
+                    Edit product
+                  </Button>
+                </>
+              )}
             </Box>
           </Paper>
         </Grid2>
       ))}
-      <AddCart
-        show={showModalCart}
-        handleShow={setShowModalCart}
-        product={productSelected}
-      />
+      {roleId === 1 ? (
+        <AddCart
+          show={showModal}
+          handleShow={setshowModal}
+          product={productSelected}
+        />
+      ) : (
+        <>
+          <AddStock
+            show={showModal}
+            handleShow={setshowModal}
+            product={productSelected}
+          />
+          <ProductState
+            show={showProductState}
+            handleShow={setShowProductState}
+            product={productSelected}
+            activate={productSelected.StateId === 1 ? false : true}
+          />
+        </>
+      )}
     </>
   );
 }
 
 ProductCard.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object).isRequired,
+  roleId: PropTypes.number,
 };

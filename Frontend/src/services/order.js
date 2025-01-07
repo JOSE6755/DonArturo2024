@@ -22,3 +22,29 @@ export async function getOrderDetail(orderId) {
     throw error.response;
   }
 }
+
+export async function getAllOrders() {
+  try {
+    const res = await axiosInstance.get("/order", { params: { stateId: 3 } });
+    if (res.status === 200) {
+      return res.data;
+    }
+    return null;
+  } catch (error) {
+    throw error.response;
+  }
+}
+
+export async function changeOrderState(orderId, stateId) {
+  try {
+    const res = await axiosInstance.put(`/order/${orderId}`, {
+      stateId: stateId,
+    });
+    if (res.status === 200) {
+      return res.data;
+    }
+    return null;
+  } catch (error) {
+    throw error.response;
+  }
+}

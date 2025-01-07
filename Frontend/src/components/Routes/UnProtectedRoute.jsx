@@ -3,6 +3,12 @@ import useAuth from "../../hooks/useAuth";
 
 export default function UnProtectedRoute() {
   const { auth } = useAuth();
-  console.log(auth);
-  return auth?.token ? <Navigate to="/home" /> : <Outlet />;
+  if (auth.token) {
+    if (auth.roleId === 2) {
+      return <Navigate to="/orders" />;
+    } else {
+      return <Navigate to="/productCatalogue" />;
+    }
+  }
+  return <Outlet />;
 }

@@ -10,7 +10,7 @@ export default function SelectFields({
   error,
   items,
   keyName,
-  type = "role",
+  type = "categories",
 }) {
   return (
     <Controller
@@ -28,7 +28,9 @@ export default function SelectFields({
           error={error[name] ? true : false}
           helperText={error[name] ? error[name].message : ""}
         >
-          <MenuItem value={0}>{type === "role" ? "none" : "all"}</MenuItem>
+          <MenuItem value={0}>
+            {type === "categories" ? "all" : "none"}
+          </MenuItem>
           {items.map((item) => (
             <MenuItem key={item[keyName]} value={item[keyName]}>
               {item.name}

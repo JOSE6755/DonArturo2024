@@ -175,6 +175,7 @@ export default function ShopCart() {
                   onClick={() => {
                     makeOrder();
                   }}
+                  sx={{ "&:hover": { backgroundColor: "success.light" } }}
                 >
                   Order
                 </Button>
@@ -187,6 +188,7 @@ export default function ShopCart() {
                   onClick={() => {
                     emptyCart();
                   }}
+                  sx={{ "&:hover": { backgroundColor: "error.light" } }}
                 >
                   Clear
                 </Button>
@@ -227,6 +229,7 @@ export default function ShopCart() {
                           onClick={() => {
                             removeProduct(product);
                           }}
+                          sx={{ "&:hover": { backgroundColor: "error.light" } }}
                         >
                           Remove
                         </Button>

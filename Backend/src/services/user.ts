@@ -23,7 +23,10 @@ export interface IUserOperations {
 export class UserService implements IUserOperations {
   public async getUsers(): Promise<User[]> {
     try {
-      const users: User[] = await User.findAll({ attributes: { exclude: ["password", "creationDate"] } });
+      const users: User[] = await User.findAll({
+        attributes: { exclude: ["password", "creationDate"] },
+        include: [User.associations.role, User.associations.client],
+      });
       return users;
     } catch (error: any) {
       console.log(error);

@@ -52,4 +52,16 @@ export const GET_PRODUCT_SCHEMA: Schema = {
     default: { options: "" },
     in: ["query"],
   },
+  stateId: {
+    optional: true,
+    isInt: {
+      errorMessage: "stateId must be a number between 1 and 2",
+      options: {
+        min: 1,
+        max: 2,
+      },
+    },
+    default: { options: 1 },
+    in: ["query"],
+  },
 };

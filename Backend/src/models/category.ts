@@ -1,4 +1,5 @@
-import { DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
+import { DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
+import { State } from "./state";
 
 export const CATEGORY_SCHEMA = {
   categoryId: {
@@ -14,6 +15,7 @@ export const CATEGORY_SCHEMA = {
 export class Category extends Model<InferAttributes<Category>, InferCreationAttributes<Category>> {
   declare categoryId: number | null;
   declare name: string;
+  declare stateId: ForeignKey<State["stateId"]>;
 
   static config(db: Sequelize): {
     sequelize: Sequelize;
@@ -29,6 +31,10 @@ export class Category extends Model<InferAttributes<Category>, InferCreationAttr
       foreignKey: "categoryId",
       otherKey: "productId",
       as: "products",
+    });
+    this.belongsTo(models.State, {
+      foreignKey: "stateId",
+      as: "state",
     });
   }
 }

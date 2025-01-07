@@ -15,6 +15,7 @@ import {
 export interface IProductOperations {
   getAllActiveProducts(options: FilterProductAttributes): Promise<ResponseProductListAttributes>;
   getAllProductsActiveInactive(options: FilterProductAttributes): Promise<ResponseProductListAttributes>;
+  getSingleProduct(productId: number): Promise<ResponseProductsAttributes>;
   createProduct(data: CreateProductAttributes): Promise<ResponseProductsAttributes>;
   updateProduct(data: UpdateProductAttributes): Promise<ResponseProductsAttributes>;
   changeProductState(data: UpdateProductStateAttributes): Promise<ResponseProductsAttributes>;
@@ -27,8 +28,9 @@ export class ProductService implements IProductOperations {
     categories = [],
     page = 1,
     size = 10,
+    stateId = 1,
   }: FilterProductAttributes): Promise<ResponseProductListAttributes> {
-    const products = await this.getAllProducts(true, { price, name, categories, page, size });
+    const products = await this.getAllProducts(true, { price, name, categories, page, size, stateId });
     return products;
   }
 
@@ -38,8 +40,9 @@ export class ProductService implements IProductOperations {
     categories = [],
     page = 1,
     size = 10,
+    stateId = 1,
   }: FilterProductAttributes): Promise<ResponseProductListAttributes> {
-    const products = await this.getAllProducts(false, { price, name, categories, page, size });
+    const products = await this.getAllProducts(false, { price, name, categories, page, size, stateId });
     return products;
   }
 
@@ -48,9 +51,9 @@ export class ProductService implements IProductOperations {
     options: FilterProductAttributes,
   ): Promise<ResponseProductListAttributes> {
     console.log(options);
-    let queryWithoutIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand FROM FilterProducts fp WHERE fp.Name LIKE :name GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
+    let queryWithoutIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories FROM FilterProducts fp WHERE fp.Name LIKE :name GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId, fp.Categories ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
     const bindWithoutIn = { name: options.name, offset: (options.page - 1) * options.size, size: options.size };
-    let queryWithIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand FROM FilterProducts fp WHERE fp.Name LIKE :name AND fp.CategoryId IN (:categories) GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
+    let queryWithIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories FROM FilterProducts fp WHERE fp.Name LIKE :name AND ',' + fp.Categories + ',' LIKE '%,'+ :categories +',%' GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
     const bindWithIn = {
       name: options.name,
       categories: options.categories,
@@ -58,8 +61,8 @@ export class ProductService implements IProductOperations {
       size: options.size,
     };
     if (onlyActive) {
-      queryWithoutIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand FROM FilterProducts fp WHERE fp.StateId= 1 AND fp.Name LIKE :name GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
-      queryWithIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand FROM FilterProducts fp WHERE fp.stateId = 1 AND fp.Name LIKE :name AND fp.CategoryId IN (:categories) GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
+      queryWithoutIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories FROM FilterProducts fp WHERE fp.StateId= 1 AND fp.Name LIKE :name GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
+      queryWithIn = `SELECT fp.productId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories FROM FilterProducts fp WHERE fp.stateId = 1 AND fp.Name LIKE :name AND ',' + fp.Categories + ',' LIKE '%,'+ :categories +',%' GROUP BY fp.ProductId,fp.Name,fp.Code,fp.Stock,fp.Price,fp.[Image],fp.StateId,fp.Brand,fp.BrandId,fp.Categories ORDER BY fp.Price ${options.price} OFFSET :offset ROWS FETCH NEXT :size ROWS ONLY`;
     }
 
     const finalQuery = options.categories.length > 0 ? queryWithIn : queryWithoutIn;
@@ -72,11 +75,11 @@ export class ProductService implements IProductOperations {
       replacements: finalBind,
     });
     const queryCountWithoutIn = onlyActive
-      ? "SELECT COUNT(*) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.StateId = 1 AND p.Name LIKE :name"
-      : "SELECT COUNT(*) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.Name LIKE :name";
+      ? "SELECT COUNT(DISTINCT p.ProductId) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.StateId = 1 AND p.Name LIKE :name"
+      : "SELECT COUNT(DISTINCT p.ProductId) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.Name LIKE :name";
     const queryCountWithIn = onlyActive
-      ? "SELECT COUNT(*) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.StateId = 1 AND p.Name LIKE :name AND cp.CategoryId IN (:categories)"
-      : "SELECT COUNT(*) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.Name LIKE :name AND cp.CategoryId IN (:categories)";
+      ? "SELECT COUNT(DISTINCT p.ProductId) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.StateId = 1 AND p.Name LIKE :name AND cp.CategoryId IN (:categories)"
+      : "SELECT COUNT(DISTINCT p.ProductId) as total FROM Product p INNER JOIN CategoryProduct cp ON cp.ProductId = p.ProductId WHERE p.Name LIKE :name AND cp.CategoryId IN (:categories)";
     const finalQueryCount = options.categories.length > 0 ? queryCountWithIn : queryCountWithoutIn;
     const finalCountBind =
       options.categories.length > 0 ? { name: options.name, categories: options.categories } : { name: options.name };
@@ -88,40 +91,33 @@ export class ProductService implements IProductOperations {
     });
     console.log(total);
 
-    // const [products]: [Product[]] = await Promise.all([
-    //   Product.findAll({
-    //     include: [
-    //       {
-    //         model: Brand,
-    //         as: "brand",
-    //         attributes: ["name"],
-    //       },
-    //       {
-    //         model: State,
-    //         as: "state",
-    //         attributes: ["name"],
-    //       },
-    //       {
-    //         model: Category,
-    //         as: "categories",
-    //         attributes: ["name"],
-    //         through: {
-    //           attributes: [],
-    //         },
-    //       },
-    //     ],
-    //     where: onlyActive ? { stateId: { [Op.eq]: 1 } } : {},
-    //     limit: 10,
-    //     offset: 0,
-    //   }),
-    // ]);
     const result: ResponseProductListAttributes = {
       products: products,
       total: total!.total,
       page: options.page,
-      size: 10,
+      size: options.size,
     };
     return result;
+  }
+
+  public async getSingleProduct(productId: number): Promise<ResponseProductsAttributes> {
+    const product = await this.existProduct(productId);
+    if (!product) {
+      throw new Error(`Product ${productId} not found`);
+    }
+
+    try {
+      const product = await db.query("SELECT * FROM SingleProduct sp WHERE sp.ProductId = $1", {
+        raw: true,
+        type: QueryTypes.SELECT,
+        bind: [productId],
+        plain: true,
+      });
+      return product as ResponseProductsAttributes;
+    } catch (error) {
+      console.error(error);
+      throw new Error(`Product fetching ${productId} failed`);
+    }
   }
 
   public async createProduct(data: CreateProductAttributes): Promise<ResponseProductsAttributes> {
@@ -202,11 +198,23 @@ export class ProductService implements IProductOperations {
   }
 
   public async changeProductState(data: UpdateProductStateAttributes): Promise<ResponseProductsAttributes> {
-    if (!(await this.existProduct(data.productId))) {
+    const product = await this.existProduct(data.productId);
+    if (!product) {
       throw new Error(`Product ${data.productId} not found`);
     }
 
     try {
+      const inactiveCategory = await db.query(
+        "SELECT Name FROM CheckCategoryState WHERE StateId = 2 AND ProductId = $1",
+        {
+          bind: [data.productId],
+          type: QueryTypes.SELECT,
+          raw: true,
+        },
+      );
+      if (inactiveCategory.length > 0) {
+        throw new Error(`Product ${data.productId} has a inactive category`);
+      }
       const result = await db.query("EXEC UpdateProductState @ProductId = $1, @StateId = $2;", {
         bind: [data.productId, data.stateId],
         type: QueryTypes.SELECT,

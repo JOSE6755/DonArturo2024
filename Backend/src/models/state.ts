@@ -30,7 +30,7 @@ export class State extends Model<InferAttributes<State>, InferCreationAttributes
     });
     this.hasMany(models.User, {
       foreignKey: "stateId",
-      as: "users",
+      as: "state",
     });
   }
 }
